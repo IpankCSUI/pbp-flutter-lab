@@ -112,3 +112,165 @@ mainAxisAlignment: MainAxisAlignment.center,
               'GENAP', style: TextStyle(color: Colors.red),
               ),
 ```
+
+# Tugas 8
+ ## Jelaskan perbedaan Navigator.push dan Navigator.pushReplacement.
+ Navigator.push (): Metode push digunakan untuk menambahkan rute lain ke atas tumpukan screen (stack) saat ini. Halaman baru ditampilkan di atas halaman sebelumnya.
+Navigator.pop (): Metode pop menghapus rute paling atas dari tumpukan. Ini menampilkan halaman sebelumnya kepada pengguna.
+
+ ## Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
+- Drawer: berfungsi sebagai material design drawer.
+- ListTile: berfungsi membuat list tile.
+- Form: berfungsi untuk membuat container untuk form fields.
+- TextFormField: berfungsi sebagai form field berisi TextField.
+- DropdownButton: berfungsi membauat Dropdown berupa FormField.
+- Card: berfungsi membauat material design card.
+
+
+ ## Sebutkan jenis-jenis event yang ada pada Flutter (contoh: onPressed).
+- onPressed
+- onTap
+- onChanged
+- onSaved
+- onEditingComplete
+- onFieldSubmitted
+- onHover
+
+
+ ## Jelaskan bagaimana cara kerja Navigator dalam "mengganti" halaman dari aplikasi Flutter.
+ Widget Navigator menampilkan layar seakan sebagai sebuah tumpukan (stack). Untuk menavigasi sebuah halaman baru, kita dapat mengakses Navigator melalui BuildContext dan memanggil fungsi push() atau pop(). 
+
+ ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+ 1. Menambahkan drawer halaman tambah budget dan data budget pada tiap page
+ 2. Menambahkan field judul, nominal, dan jenis untuk form di halaman form
+ ```shell
+body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Padding(
+                  // Menggunakan padding sebesar 8 pixels
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.title),
+                      hintText: "Contoh: Beli Bakso",
+                      labelText: "Judul",
+                      // Menambahkan icon agar lebih intuitif
+                      // Menambahkan circular border agar lebih rapi
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    // Menambahkan behavior saat nama diketik
+                    onChanged: (String? value) {
+                      setState(() {
+                        _judul = value!;
+                      });
+                    },
+                    // Menambahkan behavior saat data disimpan
+                    onSaved: (String? value) {
+                      setState(() {
+                        _judul = value!;
+                      });
+                    },
+                    // Validator sebagai validasi form
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Judul tidak boleh kosong!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  // Menggunakan padding sebesar 8 pixels
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.attach_money),
+                      hintText: "Contoh: 5000",
+                      labelText: "Nominal",
+                      // Menambahkan icon agar lebih intuitif
+                      // Menambahkan circular border agar lebih rapi
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+
+                    // Menambahkan behavior saat nama diketik
+                    onChanged: (String? value) {
+                      setState(() {
+                        _nominal = value!;
+                      });
+                    },
+                    // Menambahkan behavior saat data disimpan
+                    onSaved: (String? value) {
+                      setState(() {
+                        _nominal = value!;
+                      });
+                    },
+                    // Validator sebagai validasi form
+                    validator: (String? value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.startsWith('0')) {
+                        return 'Nominal tidak boleh kosong!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                      hint: Text('Pilih jenis'),
+                      items: _jenis.map((jenis) {
+                        return DropdownMenuItem(
+                          value: jenis,
+                          child: Text(jenis),
+                        );
+                      }).toList(),
+                      value: _jenisTerpilih,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _jenisTerpilih = newValue!;
+                        });
+                      }),
+                ),
+                TextButton(
+                  child: const Text(
+                    "Simpan",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        EdgeInsets.all(16)),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      var map = {};
+                      map['judul'] = _judul;
+                      map['nominal'] = _nominal;
+                      map['jenis'] = _jenisTerpilih;
+                      map['tanggal'] = dateInput.text;
+                      data.add(map);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Data berhasil disimpan!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    }
+                  },
+                ),
+```
+4. Membuat list yang berisi map, yang isinya data-data budget yang disimpan ketika button pada halaman form ditekan.
+5. Menambahkan data.dart yang akan menampilkan data-data budget yang telah disimpan, dengan mengimport list data dari file tambah.dart.
