@@ -1,8 +1,8 @@
+import 'package:counter_7/drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:counter_7/main.dart';
-import 'package:counter_7/data.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+
 
 
 
@@ -36,44 +36,7 @@ class _MyFormPageState extends State<MyFormPage> {
       appBar: AppBar(
         title: Text('Form'),
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.yellow,
-          child: Column(
-            children: [
-              // Menambahkan clickable menu
-              ListTile(
-                title: const Text('counter_7'),
-                onTap: () {
-                  // Route menu ke halaman utama
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()),
-                  );
-                },
-              ),
-              ListTile(
-                title: const Text('Tambah Budget'),
-                onTap: () {
-                  // Route menu ke halaman form
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyFormPage()),
-                  );
-                },
-              ),
-              ListTile(
-                title: const Text('Data Budget'),
-                onTap: () {
-                  // Route menu ke halaman form
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyDataPage()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+      drawer: const LabDrawer(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(

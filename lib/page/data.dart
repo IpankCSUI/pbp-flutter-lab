@@ -1,7 +1,6 @@
-import 'package:counter_7/tambah.dart' as form;
+import 'package:counter_7/drawer.dart';
+import 'package:counter_7/page/tambah.dart' as form;
 import 'package:flutter/material.dart';
-import 'package:counter_7/tambah.dart';
-import 'package:counter_7/main.dart';
 
 class MyDataPage extends StatefulWidget {
   const MyDataPage({super.key});
@@ -19,44 +18,7 @@ class _MyDataPageState extends State<MyDataPage> {
         appBar: AppBar(
           title: Text('Data Budget'),
         ),
-        drawer: Drawer(
-        backgroundColor: Colors.yellow,
-          child: Column(
-            children: [
-              // Menambahkan clickable menu
-              ListTile(
-                title: const Text('counter_7'),
-                onTap: () {
-                  // Route menu ke halaman utama
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()),
-                  );
-                },
-              ),
-              ListTile(
-                title: const Text('Tambah Budget'),
-                onTap: () {
-                  // Route menu ke halaman form
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyFormPage()),
-                  );
-                },
-              ),
-              ListTile(
-                title: const Text('Data Budget'),
-                onTap: () {
-                  // Route menu ke halaman form
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyDataPage()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const LabDrawer(),
         body: ListView.builder(
             itemCount: form.data.length,
             itemBuilder: (context, index) {
@@ -89,6 +51,8 @@ class _MyDataPageState extends State<MyDataPage> {
                       child: Text(form.data[index]['jenis']),
                     )),
               );
-            }));
+            }
+          )
+        );
   }
 }
