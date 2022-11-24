@@ -26,7 +26,7 @@ class _MyWatchlistDetailsState extends State<MyWatchlistDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('My Watch List'),
+          title: const Text('Details'),
         ),
         // Menambahkan drawer menu
         drawer: LabDrawer(),

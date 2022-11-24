@@ -275,3 +275,24 @@ body: Form(
 4. Membuat list yang berisi map, yang isinya data-data budget yang disimpan ketika button pada halaman form ditekan.
 5. Menambahkan data.dart yang akan menampilkan data-data budget yang telah disimpan, dengan mengimport list data dari file tambah.dart.
 
+# Tugas 9
+## Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+Ya, output dari jsonDecode adalah Map [str, dynamic] sehingga dapat memproses data dengan objek ini. Tidak lebih baik karena kita tidak tahu berapa nilai item-item tersebut (dinamis).
+## Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
+Spacer: Widget untuk memakan empty space dan memberi jarak antar widget
+- Checkbox: Widget untuk membuat checkbox
+- Expanded: Widget untuk memperbesar widget child sepanjang axis dari Row/Column
+- ListView: Widget untuk membangun suatu kumpulan anakan widget berdasarkan jumlah item.
+- InkWell: berfungsi sebagai area yang akan merespon ketika ada onTap event
+- FutureBuilder: Widget untuk melakukan update child berdasarkan hasil future yang diberikan
+
+
+## Jelaskan mekanisme pengambilan data dari json hingga dapat ditampilkan pada Flutter.
+Menggunakan library http, flutter membuat HTTP request ke server dan server Django menyelesaikan path dan memuat views yang sesuai. Server kemudian mengirimkan respons ke flutter di mana responsnya adalah response.bodyBytes. Program lalu me-decode bytes yang diterima dan melakukan deserialization menggunakan jsonDecode. Output dari jsonDecode ini kemudian digunakan untuk menginisialisasi model yang dibuat sebelumnya.
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+1. Refactor beberapa file ke folder model dan page. Kemudian tambahkan kotak navigasi yang mengarah ke halaman My Watch List. 
+2. Membuat model WatchList di folder model yang dibuat oleh endpoint JSON terkait. 
+3. Membuat file fetch.dart di folder model untuk mengambil data JSON dari web service. 
+4. Membuat file mywatchlist_page di folder page yang menampilkan semua judul watchlist dengan FutureBuilder. 
+5. File detail.dart dibuat di folder page  yang menunjukkan detail dari setiap judul daftar pantauan yang dipilih. Tombol back juga telah ditambahkan untuk kembali ke halaman mywatchlist. 
+6. Menambahkan widget InkWell yang merespons sentuhan pada judul film lalu mengarahkan ke halaman details sesuai judul yang dipilih.
