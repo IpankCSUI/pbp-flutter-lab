@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 Future<List<WatchList>> fetchWatchList() async {
   var url =
-      Uri.parse('https://tugas3-pankgeming.herokuapp.com/mywatchlist/json/');
+      Uri.parse('http://127.0.0.1:8000/mywatchlist/json/');
   var response = await http.get(
     url,
     headers: {
